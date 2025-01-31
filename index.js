@@ -38,16 +38,29 @@ router.use((request,response,next)=>{
 
 router.route('/getUseCaseList').get(async(req,res)=>{
     let request=db.request();
+    try {
     const result = await request.query('SELECT * from Usecase_Info');
     console.log("18",result.recordsets)
     res.json({msg:"Fetch User successfully",data:result.recordsets})
+    }catch (err) {
+        console.error("Error fetching data:", err.message);
+        res.status(500).json({ message: "Error fetching data", error: err.message });
+      }
+    
 })
 
 router.route('/getAssetList').get(async(req,res)=>{
     let request=db.request();
+    try {
     const result = await request.query('SELECT * from Asset_Info');
     console.log("18",result.recordsets)
     res.json({msg:"Assets fetched successfully",data:result.recordsets})
+    }catch (err) {
+        console.error("Error fetching data:", err.message);
+        res.status(500).json({ message: "Error fetching data", error: err.message });
+      }
+    
+    
 })
 
 
